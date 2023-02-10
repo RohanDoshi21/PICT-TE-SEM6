@@ -86,7 +86,7 @@ int main()
     g1.DFS();
     cout << endl;
 
-    g1.clearVisited()
+    g1.clearVisited();
     cout << "BFS: ";
     g1.BFS();
     cout << endl;
