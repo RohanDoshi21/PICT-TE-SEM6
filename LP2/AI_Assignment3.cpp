@@ -141,3 +141,11 @@ int main()
     g1.Prims();
     return 0;
 }
+
+/*
+    Greedy Search Algorithm
+    -> Local Search Algorithm
+    -> Not optimal
+    -> Select the next node which is adjacent to the current node and has the least cost/distance from the current node.
+    -> Not Complete
+*/
