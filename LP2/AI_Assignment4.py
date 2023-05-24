@@ -1,5 +1,6 @@
 # Refer https://www.youtube.com/watch?v=wuVwUK25Rfc
 
+# 1. Backtracking only
 class Graph:
     def __init__(self, vertices):
         self.vertices = vertices
