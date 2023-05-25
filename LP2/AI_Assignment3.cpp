@@ -11,12 +11,12 @@ class Graph
     int Edges;
     int weight;
 
-    void addEdge(int source, int destination, int weight)
+public:
+    void add_edge(int source, int destination, int weight)
     {
         adjMatrix[source][destination] = weight;
     }
 
-public:
     Graph(int Nodes, int Edges)
     {
         this->Nodes = Nodes;
@@ -56,10 +56,15 @@ public:
             cin >> destination;
             cout << "Enter Weight: ";
             cin >> weight;
-            addEdge(source, destination, weight);
-            addEdge(destination, source, weight);
+            add_edge(source, destination, weight);
+            add_edge(destination, source, weight);
         }
     }
+    int heuristic(int source, int destination)
+    {
+        return abs(source - destination);
+    }
+
     void Prims()
     {
         int edges_no = 0;
@@ -99,9 +104,10 @@ public:
                         if (!selected[j] && adjMatrix[i][j])
                         {
                             // Find out the min element from the column
-                            if (min > adjMatrix[i][j])
+                            int total = adjMatrix[i][j] + heuristic(i, j);
+                            if (min > total)
                             {
-                                min = adjMatrix[i][j];
+                                min = total;
                                 // Store the position of Min Element in X and Y
                                 x = i;
                                 y = j;
@@ -110,6 +116,7 @@ public:
                     }
                 }
             }
+
             // The Minimum element will be G[X][Y]
             cout << x << " - " << y << " :  " << adjMatrix[x][y];
             weight += adjMatrix[x][y];
@@ -127,19 +134,25 @@ public:
 
 int main()
 {
-    int vertices;
-    int edges;
-    cout << "Enter No of Vertices: ";
-    cin >> vertices;
-    cout << "Enter No of Edges: ";
-    cin >> edges;
-    Graph g1(vertices, edges);
-    g1.Create();
-    cout << "\n\nGRAPH" << endl;
-    g1.Display();
-    cout << "\n\nMIN SPANNING TREE" << endl;
-    g1.Prims();
-    return 0;
+    int edges = 7;
+    int vertices = 5;
+    Graph graph(vertices, edges);
+
+    // Add edges and their weights
+    graph.add_edge(0, 1, 2);
+    graph.add_edge(0, 3, 6);
+    graph.add_edge(1, 2, 3);
+    graph.add_edge(1, 3, 8);
+    graph.add_edge(1, 4, 5);
+    graph.add_edge(2, 4, 7);
+    graph.add_edge(3, 4, 9);
+
+    cout << "Graph Edges:" << endl;
+    graph.Display();
+    cout << endl;
+
+    cout << "Minimum Spanning Tree Edges (Prim's algorithm):" << endl;
+    graph.Prims();
 }
 
 /*

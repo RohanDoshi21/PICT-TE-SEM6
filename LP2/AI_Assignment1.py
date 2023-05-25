@@ -1,7 +1,7 @@
 from collections import deque
 
 # For Queue
-# PopLeft and Append 
+# PopLeft and Append
 
 # Class representing a graph using adjacency list representation
 class Graph:
@@ -77,3 +77,17 @@ graph.dfs('A')
 # Perform BFS starting from vertex 'A'
 print("BFS traversal:")
 graph.bfs('A')
+
+'''
+    1. DFS:
+        -> Time Complexity  O(b^d)
+        -> Space Complexity O(d)
+        -> Optimality: No
+        -> Completeness: No ( Could go in infinite loop if cycle is present )
+
+    2. BFS:
+        -> Time Complexity O(b^d)
+        -> Space Complexity O(V)
+        -> Optimality: Yes
+        -> Completeness: Yes
+'''
