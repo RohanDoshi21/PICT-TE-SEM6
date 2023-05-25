@@ -9,60 +9,58 @@ class Node:
         self.h = h
         self.f = g + h
 
+    # Comparison function to determine priority in the priority queue
     def __lt__(self, other):
         return self.f < other.f
 
 
 def a_star(matrix, start_loc, end_loc):
     open_list = []
-    closed_list = []
+    closed_set = set()
 
     start_node = Node(None, start_loc, 0, 0)
-    end_node = Node(Node, end_loc, 0, 0)
+    end_node = Node(None, end_loc, 0, 0)
 
+    # Push the starting node to the open list with its priority
     heapq.heappush(open_list, (start_node.f, start_node))
 
     while open_list:
+        current = heapq.heappop(open_list)[1]
+        # Add the current node's position to the closed_set
+        closed_set.add(current.position)
 
-        # Pop the node with the lowest priority from the open list
-        current_node = heapq.heappop(open_list)[1]
-        closed_list.append(current_node)
-
-        if current_node.position == end_node.position:  # Check if we have reached the goal
+        # Check if we have reached the goal
+        if current.position == end_loc:
             path = []
-            current = current_node
-            while current:  # Reconstruct the path by traversing the parent pointers
+            # Reconstruct the path by traversing the parent pointers
+            while current:
                 path.append(current.position)
                 current = current.parent
             path.reverse()
-            return path  # Return the path
+            return path
 
-        # Possible neighbor directions (left, right, up, down)
-        delta_directions = [(0, -1), (0, 1), (-1, 0), (1, 0)]
+        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 
-        for delta in delta_directions:
-            node_position = (
-                current_node.position[0] + delta[0], current_node.position[1] + delta[1])  # Calculate the neighbor position
+        for direction in directions:
+            new_position = (
+                current.position[0] + direction[0], current.position[1] + direction[1])
 
             # Check if the neighbor is out of bounds or blocked by an obstacle
             if (
-                node_position[0] < 0 or node_position[0] >= len(matrix) or
-                node_position[1] < 0 or node_position[1] >= len(matrix[0]) or
-                matrix[node_position[0]][node_position[1]] != 0
+                new_position[0] < 0 or new_position[0] >= len(matrix[0]) or
+                new_position[1] < 0 or new_position[1] >= len(matrix) or
+                matrix[new_position[0]][new_position[1]] != 0 or
+                new_position in closed_set  # Check if the new position is already in the closed set
             ):
                 continue
 
             new_node = Node(
-                current_node, node_position, current_node.g + 1,
-                abs(node_position[0] - end_loc[0]) +
-                abs(node_position[1] - end_loc[1])
-            )  # Create a new node for the neighbor
+                current, new_position, current.g,
+                abs(new_position[0] - end_loc[0]) +
+                abs(new_position[1] - end_loc[1])
+            )
 
-            # Check if the new node is already in the closed list
-            if new_node in closed_list:
-                continue
-
-            # Check if the new node is already in the open list
+            # Check if position is already present in open list
             if any(node.position == new_node.position for _, node in open_list):
                 continue
 
@@ -72,15 +70,16 @@ def a_star(matrix, start_loc, end_loc):
 
 
 matrix = [
-    [0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
     [0, 1, 1, 1, 1, 0],
     [0, 1, 0, 0, 0, 0],
     [0, 0, 1, 0, 0, 1],
     [0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0]
+    [0, 0, 1, 1, 0, 0]
 ]
 start_loc = (0, 0)
 end_loc = (5, 5)
+
 path = a_star(matrix, start_loc, end_loc)
 
 if path:
