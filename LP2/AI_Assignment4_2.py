@@ -27,7 +27,7 @@ class Graph:
 
                 bound = self.get_bound(
                     current_vertex, result_color, no_of_colors)
-                if bound >= 0:  # Updated bound check condition
+                if bound > 0:  # Updated bound check condition
                     if self.graph_coloring_util(no_of_colors, result_color, current_vertex + 1):
                         return True
 

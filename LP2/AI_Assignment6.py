@@ -58,3 +58,11 @@ while True:
     print("Chatbot: " + bot_response)
 
 print("Thank you for using the Customer Interaction Chatbot. Goodbye!")
+
+
+'''
+    Components of an Expert System:
+        1. Knowledge Base : Contains facts and rules
+        2. Inference Engine : makes decisions
+        3. User Interface : interact with the user
+'''

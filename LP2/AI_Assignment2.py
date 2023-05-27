@@ -69,18 +69,28 @@ def a_star(matrix, start_loc, end_loc):
     return []
 
 
-matrix = [
-    [0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 0],
-    [0, 1, 0, 0, 0, 0],
-    [0, 0, 1, 0, 0, 1],
-    [0, 1, 0, 0, 0, 0],
-    [0, 0, 1, 1, 0, 0]
-]
-start_loc = (0, 0)
-end_loc = (5, 5)
+# matrix = [
+#     [0, 0, 0, 0, 0, 0],
+#     [0, 1, 1, 1, 1, 0],
+#     [0, 1, 0, 0, 0, 0],
+#     [0, 0, 1, 0, 0, 1],
+#     [0, 1, 0, 0, 0, 0],
+#     [0, 0, 1, 1, 0, 0]
+# ]
+# start_loc = (0, 0)
+# end_loc = (5, 5)
 
-path = a_star(matrix, start_loc, end_loc)
+matrix = [
+    [0, 0, 0, 1],
+    [1, 0, 0, 1],
+    [0, 0, 0, 1],
+    [0, 1, 1, 0]
+]
+
+start_pos = (0, 0)
+end_pos = (3, 3)
+
+path = a_star(matrix, start_pos, end_pos)
 
 if path:
     print("Path found:", path)

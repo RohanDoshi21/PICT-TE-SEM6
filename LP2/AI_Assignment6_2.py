@@ -21,7 +21,7 @@ def diagnose():
     possible_diseases = []
 
     for disease_name, symptoms in diseases.items():
-        if all(symptom in user_symptoms for symptom in symptoms):
+        if any(symptom in user_symptoms for symptom in symptoms):
             possible_diseases.append(disease_name)
 
     if possible_diseases:
