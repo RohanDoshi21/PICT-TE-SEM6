@@ -19,5 +19,5 @@
     reducedCounts.saveAsTextFile("output1.txt")
 
     // Print the contents of the file
-    reducedCounts.foreach(println
+    reducedCounts.foreach(println)
 ```
